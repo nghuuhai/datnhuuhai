@@ -1,0 +1,130 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device=width, intial-scale=1.0">
+    <title>ĐỘ ẨM ĐẤT</title>
+    <link rel="stylesheet" type="text/css" href="style_chart.css">
+    <link rel="shortcut icon" href="images/UTC2.webp">
+    <!--FAVICON cho website-->
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</head>
+
+<body>
+    <div class="header">
+        <table class="khung1" align="center">
+            <tr>
+                <td>
+                    <h1>ĐỒ ÁN TỐT NGHIỆP</h1>
+                    <h5>HỆ THỐNG GIÁM SÁT, ĐIỀU KHIỂN MÔ HÌNH TRỒNG MĂNG TÂY
+                        <h5>
+                </td>
+
+            </tr>
+        </table>
+    </div>
+    <!-- phần header của trang từ div class đến /div -->
+    <div class="listnav" align="center">
+        <table>
+            <tr>
+                <td><a href="nongnghiep.html">TRANG CHỦ</a></td>
+                <td><a href="chart_doam.html">ĐỘ ẨM</a></td>
+                <td><a href="chart_doamdat.html">ĐỘ ẨM ĐẤT</a></td>
+                <td><a href="chart_nhietdo.html">NHIỆT ĐỘ</a></td>
+                <td><a href="chart_cuongdosang.html">ÁNH SÁNG</a></td>
+                <td><a href="index.html">ĐĂNG XUẤT</a></td>
+
+                <td>
+                    <a id="dongho"></a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="khung2" align="center">
+        <h3>ĐỒ THỊ HIỂN THỊ ĐỘ ẨM ĐẤT</h3>
+    </div>
+    <div class="khung3" align="center"><canvas id="myChart" style="width: 70%; height: 220px;"></canvas></div>
+    <div class="khung4" align="center">
+        <h2>ĐƠN VỊ (%)</h2>
+        </td>
+    </div>
+
+    <div class="footer">
+        <p>GVHD: VÕ THIỆN LĨNH<br> SVTH: NGUYỄN HỮU HẢI<br></p>
+    </div>
+    <!-- phần footer của trang từ div class đến /div -->
+</body>
+<!-- LIÊN KẾT VỚI FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-analytics.js"></script>
+<script>
+    var firebaseConfig = {
+        apiKey: "AIzaSyDuhiezPnnTuxtLLHUZyuL4TXDn4penKJI",
+        authDomain: "huuhai-datn.firebaseapp.com",
+        databaseURL: "https://huuhai-datn-default-rtdb.firebaseio.com",
+        projectId: "huuhai-datn",
+        storageBucket: "huuhai-datn.appspot.com",
+        messagingSenderId: "912985909823",
+        appId: "1:912985909823:web:3aa098fbe5bf91ae02a68a",
+        measurementId: "G-B50645Z8ZC"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [0],
+            datasets: [{
+                label: 'ĐỘ ẨM ĐẤT',
+                data: [0],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 5
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+    function addData(chart, label, data) {
+        chart.data.labels.push(label);
+        chart.data.datasets.forEach((dataset) => {
+            dataset.data.push(data);
+        });
+        chart.update();
+    }
+    var doamdat = firebase.database().ref('doamdat');
+    doamdat.on('value', function(snapshot) {
+        var date = new Date();
+        var dongho = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+        addData(myChart, dongho, snapshot.val());
+    });
+    setInterval(function() {
+        var date = new Date();
+        var gio = date.getHours();
+        var phut = date.getMinutes();
+        var giay = date.getSeconds();
+        document.getElementById('dongho').innerHTML = gio + ':' + phut + ':' + giay;
+    }, 1000);
+</script>
+
+</html>

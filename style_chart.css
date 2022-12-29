@@ -1,0 +1,131 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #ffffff;
+}
+
+.khung1 {
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    color: #000066;
+}
+
+h1 {
+    text-align: center;
+    font-family: Tahoma;
+    color: #E34053;
+    margin: 0px;
+    line-height: 1.5;
+}
+
+h5 {
+    text-align: center;
+    font-family: Tahoma;
+    color: #6C7B8B;
+    font-size: 30px;
+    margin: 0px;
+}
+
+
+/* kết thúc phần header*/
+
+
+/* bắt đầu phần cho thanh điều hướng */
+
+div.listnav {
+    background-color: #00405d;
+    font-size: 20px;
+    padding: 10px;
+    width: 100%;
+    height: 25px;
+}
+
+a {
+    font-weight: bolder;
+    text-decoration: none;
+    color: white;
+    margin-right: 30px;
+}
+
+
+/* kết thúc thanh điều hướng */
+
+
+/* bắt đầu phần body */
+
+.khung1 {
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    color: #000066;
+}
+
+.khung2 {
+    font-size: 16px;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+}
+
+.khung3 {
+    width: 90%;
+    text-align: center;
+    margin-left: 100px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border: 4px inset #1583b2;
+}
+
+h3 {
+    text-align: center;
+    font-family: Tahoma;
+    color: #3931DE;
+    margin: 0px;
+    padding: 10px;
+    font-size: 30px;
+}
+
+h2 {
+    text-align: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1.5;
+    border: 4px inset #1583b2;
+    background-color: white;
+    color: #3333CC;
+    height: 30px;
+    width: 15%;
+}
+
+
+/* kết thúc phần body */
+
+
+/* phần footer đã hoàn thiện */
+
+div.footer {
+    background-color: #CCFFCC;
+    text-align: center;
+    width: 100%;
+    height: 58px;
+}
+
+p {
+    font-weight: bolder;
+    text-align: center;
+    color: rgb(38, 0, 255);
+    font-size: 20px;
+    margin-top: 30px;
+}
+
+
+/* kết thúc phần footer  */

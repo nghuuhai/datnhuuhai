@@ -1,0 +1,134 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ĐĂNG NHẬP</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="shortcut icon" href="images/utc.png">
+    <!--FAVICON cho website-->
+</head>
+
+<body>
+    <div style="background-image: url('images/bg.jpg'); height: 620px;">
+        <div class="header">
+            <table class="khung1" align="center">
+                <tr>
+                    <td><img src="images/ph.png"></td>
+
+                    <td>
+                        <h1>ĐỒ ÁN TỐT NGHIỆP</h1>
+                        <h2>HỆ THỐNG GIÁM SÁT, ĐIỀU KHIỂN 
+						MÔ HÌNH TRỒNG MĂNG TÂY
+                            <h2>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="background-image: url('images/background.jpg'); background: no-repeat center;">
+            <table class="khung2" align="center">
+                <tr>
+                    <th colspan="2">
+                        <h3>Đăng Nhập Tài Khoản</h3>
+                    </th>
+                </tr>
+                <tr>
+                    <td><b>Email</b></td>
+                    <td><input class="khung3" type="text" placeholder="Email Đăng Nhập" id="email"></td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Mật Khẩu</b></td>
+                    <td width="55%"><input class="khung3" type="password" placeholder="Mật Khẩu" id="password"></td>
+                </tr>
+                <tr>
+                    <th colspan="2">
+                        <input class="khung4" type="submit" name="Đăng Nhập" id="login" value="ĐĂNG NHẬP" onclick="login()" />
+                    </th>
+                </tr>
+                <tr>
+                    <td colspan="2"> Bạn đã có tài khoản chưa? <a href="dangki.html">ĐĂNG KÍ</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="footer">
+        <p> GVHD: VÕ THIỆN LĨNH<br>SVTH: NGUYỄN HỮU HẢI<br> </p>
+    </div>
+</body>
+<script type="module">
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-app.js";
+import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-database.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-auth.js";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyDuhiezPnnTuxtLLHUZyuL4TXDn4penKJI",
+    authDomain: "huuhai-datn.firebaseapp.com",
+    databaseURL: "https://huuhai-datn-default-rtdb.firebaseio.com",
+    projectId: "huuhai-datn",
+    storageBucket: "huuhai-datn.appspot.com",
+    messagingSenderId: "912985909823",
+    appId: "1:912985909823:web:3aa098fbe5bf91ae02a68a",
+    measurementId: "G-B50645Z8ZC"
+};
+
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+const auth = getAuth();
+
+//tạo trang đăng nhập
+login.addEventListener('click', (e) => {
+    var email= document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        const dt = new Date();
+    update(ref(database, user.uid),{
+        last_login:dt,
+
+    })
+        alert('đăng nhập thành công');
+        window.location="nongnghiep.html";
+    // ...
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert("đăng nhập thất bại");
+  });
+})
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    const uid = user.uid;
+    const doam = document.getElementById('doam');
+    const nhietdo = document.getElementById('nhietdo');
+    const cuongdosang = document.getElementById('cuongdosang');
+    const doamdat = document.getElementById('doamdat');
+    update(ref(data, user.uid),{
+        doam: doam,
+        nhietdo: nhietdo,
+        cuongdosang: cuongdosang,
+        doamdat: doamdat
+    })
+    // ...
+  } else {
+    // User is signed out
+    alter('log out website');
+    // ...
+  }
+});
+
+</script>
+
+</html>
